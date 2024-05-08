@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "postman-request": "^2.88.1-postman.33",
+    "request": "^2.88.2"
+  },
+  "name": "Weather-App",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
+}
