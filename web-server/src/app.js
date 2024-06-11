@@ -39,12 +39,22 @@ app.get('/products',(req,res)=>{
             error: 'You must provide a search term'
         })
     }
-    console.log(req.query.search)
     res.send({
         products:[]
     })
 })
-
+app.get('/weather',(req,res)=>{
+    if(!req.query.address){
+        return res.send({
+            error: 'You must enter the address'
+        })
+    }
+    res.send({
+        forecast: 'It is snowing',
+        location: 'Philadelphia',
+        address: req.query.address
+    })
+})
 app.get('/help/*',(req,res)=>{
     res.render('404',{
         title: '404',
