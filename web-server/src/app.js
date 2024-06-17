@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
 const app = express()
-
+const geocode = require('./utils/geocode')
 //define paths for express config
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialPath = path.join(__dirname,'../templates/partials')
