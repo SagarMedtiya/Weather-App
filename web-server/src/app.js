@@ -3,7 +3,7 @@ const path = require('path')
 const hbs = require('hbs')
 const app = express()
 const geocode = require('./utils/geocode')
-const forcast = require("./utils/forecast")
+const forecast = require("./utils/forecast")
 //define paths for express config
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialPath = path.join(__dirname,'../templates/partials')
@@ -52,20 +52,27 @@ app.get('/weather',(req,res)=>{
     }
 
 
-    geocode(req.query.address, (error,{latitude, longitude})=>{
+    geocode(req.query.address, (error,{latitude, longitude, location})=>{
         if(error){
             return res.send({ error })
         }
-        forecast(longitude, latitude, ()=>{
-            
+        forecast( latitude,longitude, (error, forecastData)=>{
+            if(error){
+                return res.send({error})
+            }
+            res.send({
+                forecast: forecastData,
+                location,
+                address: req.query.address
+            })
         })
     })
 
-    res.send({
-        forecast: 'It is snowing',
-        location: 'Philadelphia',
-        address: req.query.address
-    })
+    // res.send({
+    //     forecast: 'It is snowing',
+    //     location: 'Philadelphia',
+    //     address: req.query.address
+    // })
 })
 app.get('/help/*',(req,res)=>{
     res.render('404',{
